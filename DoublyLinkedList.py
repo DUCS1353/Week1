@@ -87,7 +87,15 @@ class DoublyLinkedList:
         - Return the values inside square brackets.
         - Separate the values with spaces or commas.
         """
-        raise NotImplementedError("TODO: implement __str__")
+        string_rep='['
+        curr=self.header.next
+        while curr is not self.trailer:
+            if curr.next is not self.trailer:
+                string_rep=string_rep+str(curr.value)+str(',')
+            else:
+                string_rep=string_rep+str(curr.value)
+        string_rep=string_rep+']'
+        return 
 
     def add_first(self, value):
         """
