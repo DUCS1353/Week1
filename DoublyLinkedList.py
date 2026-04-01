@@ -95,7 +95,7 @@ class DoublyLinkedList:
             else:
                 string_rep=string_rep+str(curr.value)
         string_rep=string_rep+']'
-        return 
+        return string_rep
 
     def add_first(self, value):
         """
