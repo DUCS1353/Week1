@@ -40,8 +40,9 @@ class DoublyLinkedList:
         - Set tail to None.
         - Set size to 0.
         """
-        self.head = None
-        self.tail = None
+        self.header = Node(None,None,None)
+        self.trailer = Node(None,None,self.header)
+        self.header.next=self.trailer
         self.size = 0
 
     def get_size(self):
@@ -64,7 +65,7 @@ class DoublyLinkedList:
         - Use self.size, self.head, or both to determine whether the list
           is empty.
         """
-        raise NotImplementedError("TODO: implement is_empty")
+        return self.size==0
 
     def __str__(self):
         """
@@ -104,7 +105,12 @@ class DoublyLinkedList:
         - Otherwise, link the new node before the current head.
         - Increase self.size by 1.
         """
-        raise NotImplementedError("TODO: implement add_first")
+        temp=Node(value,self.header,self.header.next)
+        temp.prev.next=temp
+        temp.next.prev=temp
+        self.size+=1
+
+        
 
     def add_last(self, value):
         """
@@ -194,7 +200,13 @@ class DoublyLinkedList:
         - Traverse to the node at that position.
         - Return that node's value.
         """
-        raise NotImplementedError("TODO: implement get")
+        if index<0 or index> self.size-1:
+            raise IndexError
+        curr=self.header.next
+        for _ in range(index):
+            curr=curr.next
+
+        return curr.value
 
     def remove_at_index(self, index: int):
         """
