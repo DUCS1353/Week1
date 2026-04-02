@@ -63,11 +63,10 @@ class SinglyLinkedList:
         Returns:
             bool: True when the list is empty, False otherwise.
 
-        TODO:
         - Use either self.size or self.head to determine whether the list
           is empty.
         """
-        raise NotImplementedError("TODO: implement is_empty")
+        return self.size==0
 
     def __str__(self):
         """
@@ -96,13 +95,14 @@ class SinglyLinkedList:
         Returns:
             None
 
-        TODO:
         - Create a new Node.
         - Make the new node point to the current head.
         - Update self.head to the new node.
         - Increase self.size by 1.
         """
-        raise NotImplementedError("TODO: implement add_first")
+        temp=Node(value, self.head)
+        self.head=temp
+        self.size+=1
 
     def add_last(self, value):
         """
@@ -120,7 +120,15 @@ class SinglyLinkedList:
         - Otherwise, traverse to the last node and link the new node there.
         - Increase self.size by 1.
         """
-        raise NotImplementedError("TODO: implement add_last")
+        temp=Node(value)
+        if self.head is None:
+            self.head=temp
+        else:
+            curr=self.head
+            while curr.next is not None:
+                curr=curr.next
+            curr.next=temp
+        self.size+=1       
 
     def remove_first(self):
         """
@@ -139,7 +147,13 @@ class SinglyLinkedList:
         - Decrease self.size by 1.
         - Return the saved value.
         """
-        raise NotImplementedError("TODO: implement remove_first")
+        if self.size==0:
+            raise IndexError
+            return
+        return_val=self.head.value
+        self.head=self.head.next
+        self.size-=1
+        return return_val
 
     def remove_last(self):
         """
