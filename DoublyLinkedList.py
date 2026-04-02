@@ -115,11 +115,10 @@ class DoublyLinkedList:
         - Otherwise, link the new node before the current head.
         - Increase self.size by 1.
         """
-        temp=Node(value,self.header,self.header.next)
+        temp=Node(value,self.header, self.header.next)
         temp.prev.next=temp
         temp.next.prev=temp
         self.size+=1
-
         
 
     def add_last(self, value):
@@ -138,7 +137,10 @@ class DoublyLinkedList:
         - Otherwise, link the new node after the current tail.
         - Increase self.size by 1.
         """
-        raise NotImplementedError("TODO: implement add_last")
+        temp=Node(value,self.trailer.prev,self.trailer)
+        temp.next.prev=temp
+        temp.prev.next=temp
+        self.size+=1
 
     def remove_first(self):
         """
@@ -217,6 +219,25 @@ class DoublyLinkedList:
             curr=curr.next
 
         return curr.value
+    def remove_between(self, node1, node2):
+
+	    # check if either node1 or node2 is None. Raise a ValueError if so.
+
+	    # Check that node1 and node 2 has exactly 1 node between them, 
+        # raise a ValueError if not
+
+	    # Everything is in order, so delete the node between node1 and node2, 
+        # returning the value that was stored in it
+        if node1 is None or node2 is None:
+            raise ValueError
+        if node1.next.next is not node2:
+            raise ValueError
+        return_val=node1.next.value
+        node1.next=node2
+        node2.prev=node1
+        return return_val
+
+        
 
     def remove_at_index(self, index: int):
         """
@@ -239,7 +260,12 @@ class DoublyLinkedList:
         - Re-link the previous and next nodes around it.
         - Decrease self.size and return the removed value.
         """
-        raise NotImplementedError("TODO: implement remove_at_index")
+        if index<0 or index>self.size-1:
+            raise IndexError
+        curr=self.header
+        for _ in range(index):
+            curr=curr.next
+        return self.remove_between(curr,curr.next.next)
 
     def search(self, value):
         """
